@@ -16,7 +16,7 @@ echo "Выполнение миграций django"
 python manage.py migrate
 
 echo "Собираем статику"
-python manage.py collectstatic
+python manage.py collectstatic --no-input
 
 # Запуск UWSGI
 echo "Запуск UWSGI..."
