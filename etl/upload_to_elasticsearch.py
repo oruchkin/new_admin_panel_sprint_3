@@ -35,28 +35,23 @@ class Movie:
 
 
 def upload_to_elastic(data):
-    print(data)
-    print("------------------------")
+    print(data[0])
+    print("------------------------upload_to_elastic------------------------")
     print(len(data))
     print(type(data))
     settings = Settings()
     es_client = Elasticsearch([{'host': settings.elastic_host, 'port': settings.elastic_port, 'scheme': 'http'}])
-
-    actions = []
-    for item in data:
-        movie = Movie(item["id"], item["title"], item["description"], item["rating"], item["genres"], item.get("directors", []), item.get("actors", []), item.get("writers", []))
-        movie_dict = movie.to_dict()
-        action = {
+    actions = [
+        {
             "_index": settings.elastic_index_name,
-            "_id": movie_dict['id'],
-            "_source": movie_dict
+            "_id": item['id'],
+            "_source": item
         }
-        actions.append(action)
+        for item in data
+    ]
 
     if actions:
-        # TODO: сделать эту штуку безотказной в случае если не загружается то что-то делать
         try:
             helpers.bulk(es_client, actions)
-            print("после балка")
         except Exception as e:
             print(f"Ошибка при индексации документов: {e}")
