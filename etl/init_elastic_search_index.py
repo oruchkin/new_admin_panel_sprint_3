@@ -1,7 +1,7 @@
 import logging
 
 from elasticsearch import Elasticsearch
-from etl.settings import Settings
+from settings import Settings
 
 
 def initialize_elastic() -> None:

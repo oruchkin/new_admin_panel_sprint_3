@@ -1,11 +1,11 @@
 import logging
 import time
 from settings import Settings
-from etl_scripts.extract import psycopg2_connection, extract_data
-from etl_scripts.load import upload_to_elastic
-from etl_scripts.state_storage import JsonFileStorage, State
-from etl_scripts.transform import transform_data
-from etl_scripts.init_elastic_search_index import initialize_elastic
+from extract import psycopg2_connection, extract_data
+from load import upload_to_elastic
+from state_storage import JsonFileStorage, State
+from transform import transform_data
+from init_elastic_search_index import initialize_elastic
 
 
 def main():

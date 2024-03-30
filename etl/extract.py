@@ -1,7 +1,7 @@
 import psycopg2
 from psycopg2.extras import DictCursor
-from ..settings import Settings
-from .decorators import backoff
+from settings import Settings
+from decorators import backoff
 
 @backoff()
 def psycopg2_connection():

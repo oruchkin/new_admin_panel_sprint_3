@@ -1,5 +1,5 @@
 from elasticsearch import Elasticsearch, helpers
-from etl.settings import Settings
+from settings import Settings
 
 
 def upload_to_elastic(data):
