@@ -22,3 +22,8 @@ class Settings(BaseSettings):
     delay: int = Field(default=10, alias='DELAY')
 
     state_file_path: str = Field(default='./etl_state.json', alias='STATE_FILE_PATH')
+
+    max_attemts: int = 10
+    border_sleep_time: int = 10
+    factor: int = 2
+    start_sleep_time: float = 0.1

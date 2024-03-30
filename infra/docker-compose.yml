@@ -63,6 +63,56 @@ services:
     ports:
       - "80:80"
 
+
+  prac-elasticsearch:
+    image: elasticsearch:8.6.2
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+#    volumes:
+#      - elasticsearch-data:/usr/share/elasticsearch/data
+    ports:
+      - "9200:9200"
+    restart: always
+    depends_on:
+      - prac_db_postgres
+
+
+  prac-backend2:
+    build:
+      context: ../
+      dockerfile: infra/app/Dockerfile
+
+    environment:
+      DB_HOST: ${DB_HOST}
+      DB_NAME: ${DB_NAME}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_PORT: ${DB_PORT}
+      SECRET_KEY: ${SECRET_KEY}
+      DEBUG: ${DEBUG}
+    volumes:
+      - static_value:/opt/app/static_backend/
+    ports:
+      - "8000:8000"
+    depends_on:
+      - prac_db_init
+
+
+  prac-etl:
+    build:
+      context: ../
+      dockerfile: Dockerfile
+    environment:
+      - .env
+    depends_on:
+      - prac_db_postgres
+      - prac-elasticsearch
+    restart: on-failure
+
 volumes:
     static_value:
     volume-prac-postgres:
+    elasticsearch-data:
+
+

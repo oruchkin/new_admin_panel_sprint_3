@@ -1,8 +1,7 @@
 import psycopg2
 from psycopg2.extras import DictCursor
-from etl.settings import Settings
-from etl.etl_scripts.decorators import backoff
-import datetime
+from ..settings import Settings
+from .decorators import backoff
 
 @backoff()
 def psycopg2_connection():
@@ -16,6 +15,9 @@ def psycopg2_connection():
     }
     return psycopg2.connect(**dsl, cursor_factory=DictCursor)
 
+
+
+
 def extract_data(pg_conn, state):
     last_modified = state.get_state('last_modified') or '1970-01-01'
 
@@ -26,9 +28,12 @@ def extract_data(pg_conn, state):
                    fw.description, 
                    fw.rating, 
                    array_agg(DISTINCT g.name) AS genres,
-                   array_agg(DISTINCT jsonb_build_object('id', p.id, 'name', p.full_name)) FILTER (WHERE pfw.role = 'director') AS directors,
-                   array_agg(DISTINCT jsonb_build_object('id', p.id, 'name', p.full_name)) FILTER (WHERE pfw.role = 'actor') AS actors,
-                   array_agg(DISTINCT jsonb_build_object('id', p.id, 'name', p.full_name)) FILTER (WHERE pfw.role = 'writer') AS writers,
+                   array_agg(DISTINCT jsonb_build_object('id', p.id, 'name', p.full_name)) 
+                   FILTER (WHERE pfw.role = 'director') AS directors,
+                   array_agg(DISTINCT jsonb_build_object('id', p.id, 'name', p.full_name)) 
+                   FILTER (WHERE pfw.role = 'actor') AS actors,
+                   array_agg(DISTINCT jsonb_build_object('id', p.id, 'name', p.full_name)) 
+                   FILTER (WHERE pfw.role = 'writer') AS writers,
                    MAX(GREATEST(fw.modified, g.modified, p.modified)) AS last_modified
             FROM content.film_work fw
             LEFT JOIN content.genre_film_work gfw ON fw.id = gfw.film_work_id
@@ -37,8 +42,7 @@ def extract_data(pg_conn, state):
             LEFT JOIN content.person p ON pfw.person_id = p.id
             WHERE fw.modified > %s OR g.modified > %s OR p.modified > %s
             GROUP BY fw.id
-            ORDER BY last_modified DESC
-            LIMIT 1000;
+            ORDER BY last_modified DESC;
         """, (last_modified, last_modified, last_modified))
         results = cursor.fetchall()
 
@@ -46,3 +50,5 @@ def extract_data(pg_conn, state):
             last_modified = results[0]['last_modified'].strftime('%Y-%m-%dT%H:%M:%S.%f')[:-3] + 'Z'
 
     return results, last_modified
+
+

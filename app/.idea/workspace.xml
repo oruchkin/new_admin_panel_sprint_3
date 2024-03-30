@@ -4,7 +4,38 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="89cdd4a8-4495-4166-8864-b1195f14c7e0" name="Changes" comment="ss" />
+    <list default="true" id="89cdd4a8-4495-4166-8864-b1195f14c7e0" name="Changes" comment="ss">
+      <change afterPath="$PROJECT_DIR$/../etl/etl_scripts/init_elastic_search_index.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../etl/etl_scripts/decorators.py" beforeDir="false" afterPath="$PROJECT_DIR$/../etl/etl_scripts/decorators.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../etl/etl_scripts/etl_state.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../etl/etl_scripts/extract.py" beforeDir="false" afterPath="$PROJECT_DIR$/../etl/etl_scripts/extract.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../etl/etl_scripts/load.py" beforeDir="false" afterPath="$PROJECT_DIR$/../etl/etl_scripts/load.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../etl/etl_state.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../etl/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/../etl/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../etl/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/../etl/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../etl_coro_EXAMPLE/.env" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../etl_coro_EXAMPLE/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../etl_coro_EXAMPLE/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../etl/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../etl_coro_EXAMPLE/decorators.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../etl_coro_EXAMPLE/docker-compose.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../etl_coro_EXAMPLE/fake_db_filler.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../etl_coro_EXAMPLE/init_scripts/another_way/func_notify.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../etl_coro_EXAMPLE/init_scripts/another_way/listen.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../etl_coro_EXAMPLE/init_scripts/another_way/notify.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../etl_coro_EXAMPLE/init_scripts/another_way/trigger.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../etl_coro_EXAMPLE/init_scripts/init_source_db.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../etl_coro_EXAMPLE/logger.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../etl_coro_EXAMPLE/logs/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../etl_coro_EXAMPLE/main.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../etl_coro_EXAMPLE/requirements.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../etl_coro_EXAMPLE/settings.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../etl_coro_EXAMPLE/state/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/../etl/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../etl_coro_EXAMPLE/state/base_storage.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../etl_coro_EXAMPLE/state/json_file_storage.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../etl_coro_EXAMPLE/state/models.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../etl_coro_EXAMPLE/test.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../infra/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../infra/docker-compose.yml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -14,7 +45,7 @@
     <option name="myCustomStartScript" value="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)" />
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="GitRewordedCommitMessages">
     <option name="commitMessagesMapping">
@@ -42,34 +73,34 @@
     <option name="showExcludedFiles" value="false" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;Django Server.app.executor&quot;: &quot;Run&quot;,
-    &quot;Django Server.movies_admin.executor&quot;: &quot;Run&quot;,
-    &quot;Makefile Target.compile-trans.executor&quot;: &quot;Run&quot;,
-    &quot;Makefile Target.help.executor&quot;: &quot;Run&quot;,
-    &quot;Makefile Target.make-trans.executor&quot;: &quot;Run&quot;,
-    &quot;Makefile Target.start.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenDjangoStructureViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/oleg/Desktop/practicum/new_admin_panel_sprint_2/docker_compose/empty_project/app/movies/api/v1&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;copyright&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "Django Server.app.executor": "Run",
+    "Django Server.movies_admin.executor": "Run",
+    "Makefile Target.compile-trans.executor": "Run",
+    "Makefile Target.help.executor": "Run",
+    "Makefile Target.make-trans.executor": "Run",
+    "Makefile Target.start.executor": "Run",
+    "RunOnceActivity.OpenDjangoStructureViewOnStart": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "development",
+    "last_opened_file_path": "/Users/oleg/Desktop/practicum/new_admin_panel_sprint_2/docker_compose/empty_project/app/movies/api/v1",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "copyright"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;postgresql&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "postgresql"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/movies/api/v1" />
@@ -208,6 +239,7 @@
       <workItem from="1709057294989" duration="1242000" />
       <workItem from="1709974196324" duration="18307000" />
       <workItem from="1710142622727" duration="100000" />
+      <workItem from="1711834348809" duration="12000" />
     </task>
     <task id="LOCAL-00001" summary="added ddl schema, models, admin, django structure">
       <option name="closed" value="true" />
