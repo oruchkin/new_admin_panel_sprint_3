@@ -1,14 +1,14 @@
 import logging
 import time
-from settings import Settings
 from extract import psycopg2_connection, extract_data
+from settings import Settings
 from load import upload_to_elastic
 from state_storage import JsonFileStorage, State
 from transform import transform_data
 from init_elastic_search_index import initialize_elastic
 
 
-def main():
+def main() -> None:
     settings = Settings()
     state_storage = JsonFileStorage(settings.state_file_path)
     state = State(state_storage)

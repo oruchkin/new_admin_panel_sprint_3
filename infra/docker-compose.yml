@@ -17,7 +17,7 @@ services:
   prac_db_init:
     build:
       context: postgres_init
-      dockerfile: Dockerfile_db_inti
+      dockerfile: Dockerfile_db_init
     environment:
       DB_HOST: ${DB_HOST}
       DB_NAME: ${DB_NAME}
@@ -78,36 +78,17 @@ services:
       - prac_db_postgres
 
 
-  prac-backend2:
-    build:
-      context: ../
-      dockerfile: infra/app/Dockerfile
-
-    environment:
-      DB_HOST: ${DB_HOST}
-      DB_NAME: ${DB_NAME}
-      DB_USER: ${DB_USER}
-      DB_PASSWORD: ${DB_PASSWORD}
-      DB_PORT: ${DB_PORT}
-      SECRET_KEY: ${SECRET_KEY}
-      DEBUG: ${DEBUG}
-    volumes:
-      - static_value:/opt/app/static_backend/
-    ports:
-      - "8000:8000"
-    depends_on:
-      - prac_db_init
-
 
   prac-etl:
     build:
-      context: ../
+      context: ../etl
       dockerfile: Dockerfile
     environment:
       - .env
     depends_on:
       - prac_db_postgres
       - prac-elasticsearch
+      - prac-nginx
     restart: on-failure
 
 volumes:

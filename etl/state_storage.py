@@ -3,12 +3,14 @@ from typing import Dict, Any
 import os
 from datetime import datetime, timedelta
 
+
 class BaseStorage:
     def save_state(self, state: Dict[str, Any]) -> None:
         pass
 
     def retrieve_state(self) -> Dict[str, Any]:
         pass
+
 
 class JsonFileStorage(BaseStorage):
     def __init__(self, file_path: str) -> None:
@@ -23,6 +25,7 @@ class JsonFileStorage(BaseStorage):
             return {}
         with open(self.file_path, 'r') as file:
             return json.load(file)
+
 
 class State:
     def __init__(self, storage: JsonFileStorage) -> None:

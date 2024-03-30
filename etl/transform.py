@@ -1,4 +1,3 @@
-
 class Movie:
     def __init__(self, movie_id, title, description, rating, genres, directors=None, actors=None, writers=None):
         self.id = movie_id
@@ -27,7 +26,6 @@ class Movie:
             "actors_names": self.actors_names,
             "writers_names": self.writers_names
         }
-
 
 
 def transform_data(results) -> list:

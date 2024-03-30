@@ -1,8 +1,8 @@
 import time
 import logging
 from functools import wraps
+from typing import Callable, Any
 from settings import Settings
-
 
 settings = Settings()
 
@@ -13,9 +13,9 @@ def backoff(
         border_sleep_time=settings.border_sleep_time,
         max_attempts=settings.max_attemts
 ):
-    def decorator(func):
+    def decorator(func: Callable) -> Callable:
         @wraps(func)
-        def wrapper(*args, **kwargs):
+        def wrapper(*args: Any, **kwargs: Any) -> Any:
             sleep_time = start_sleep_time
             attempts = 0
             while attempts < max_attempts:
