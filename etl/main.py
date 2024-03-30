@@ -13,7 +13,6 @@ def main():
     state_storage = JsonFileStorage(settings.state_file_path)
     state = State(state_storage)
 
-
     pg_conn = psycopg2_connection()
     while True:
         results, last_modified = extract_data(pg_conn, state)
@@ -23,7 +22,9 @@ def main():
         if data:
             upload_to_elastic(data)
             state.set_state('last_modified', last_modified)
+        print("before delay")
         time.sleep(settings.delay)
+        print("after delay")
 
 if __name__ == '__main__':
     main()

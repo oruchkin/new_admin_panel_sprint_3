@@ -2,6 +2,7 @@ import psycopg2
 from psycopg2.extras import DictCursor
 from etl.settings import Settings
 from etl.etl_scripts.decorators import backoff
+import datetime
 
 @backoff()
 def psycopg2_connection():
@@ -17,6 +18,7 @@ def psycopg2_connection():
 
 def extract_data(pg_conn, state):
     last_modified = state.get_state('last_modified') or '1970-01-01'
+
     with pg_conn.cursor() as cursor:
         cursor.execute("""
             SELECT fw.id, 
@@ -39,6 +41,7 @@ def extract_data(pg_conn, state):
             LIMIT 1000;
         """, (last_modified, last_modified, last_modified))
         results = cursor.fetchall()
+
         if results:
             last_modified = results[0]['last_modified'].strftime('%Y-%m-%dT%H:%M:%S.%f')[:-3] + 'Z'
 

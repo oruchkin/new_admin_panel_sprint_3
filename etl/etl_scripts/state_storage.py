@@ -1,7 +1,7 @@
 import json
 from typing import Dict, Any
 import os
-from datetime import datetime
+from datetime import datetime, timedelta
 
 class BaseStorage:
     def save_state(self, state: Dict[str, Any]) -> None:
@@ -28,12 +28,18 @@ class State:
     def __init__(self, storage: JsonFileStorage) -> None:
         self.storage = storage
 
-    def set_state(self, key: str, value: Any) -> None:
-        if isinstance(value, datetime):
-            value = value.strftime('%Y-%m-%dT%H:%M:%S.%f')
+    def set_state(self, key: str, value: str) -> None:
+        value_dt = datetime.strptime(value, '%Y-%m-%dT%H:%M:%S.%fZ')
+
+        # Округляем до следующей полной секунды
+        if value_dt.microsecond > 0:
+            value_dt += timedelta(seconds=1)
+            value_dt = value_dt.replace(microsecond=0)
+
+        value_str = value_dt.strftime('%Y-%m-%dT%H:%M:%SZ')
 
         state = self.storage.retrieve_state()
-        state[key] = value
+        state[key] = value_str
         self.storage.save_state(state)
 
     def get_state(self, key: str, default=None) -> Any:

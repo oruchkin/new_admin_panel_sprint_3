@@ -18,5 +18,6 @@ def upload_to_elastic(data):
     ]
 
     if actions:
+        print(actions)
         helpers.bulk(es_client, actions)
 

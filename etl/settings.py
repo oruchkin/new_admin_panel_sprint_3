@@ -19,6 +19,6 @@ class Settings(BaseSettings):
 
     # General app settings
     initial_date: str = Field(default='2021-01-01', alias='INITIAL_DATE')
-    delay: int = Field(default=15, alias='DELAY')
+    delay: int = Field(default=10, alias='DELAY')
 
     state_file_path: str = Field(default='./etl_state.json', alias='STATE_FILE_PATH')
