@@ -17,7 +17,7 @@ services:
   prac_db_init:
     build:
       context: postgres_init
-      dockerfile: Dockerfile_db_init
+      dockerfile: Dockerfile_db_inti
     environment:
       DB_HOST: ${DB_HOST}
       DB_NAME: ${DB_NAME}
