@@ -5,6 +5,9 @@ from upload_to_elasticsearch import upload_to_elastic
 from state_storage import JsonFileStorage, State
 
 
+
+
+
 def main():
     settings = Settings()
     state_storage = JsonFileStorage(settings.state_file_path)
