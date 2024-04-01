@@ -19,7 +19,7 @@ def main() -> None:
     pg_conn = psycopg2_connection()
     es_client = Elasticsearch([{'host': settings.elastic_host,
                                 'port': settings.elastic_port,
-                                'scheme': settings.ELASTIC_SCHEMA}])
+                                'scheme': settings.elastic_schema}])
 
     while True:
         for batch in extract_data(pg_conn, state, batch_size=300):

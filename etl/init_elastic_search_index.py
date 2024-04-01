@@ -9,7 +9,7 @@ def initialize_elastic() -> None:
     settings = Settings()
     es_client = Elasticsearch([{'host': settings.elastic_host,
                                 'port': settings.elastic_port,
-                                'scheme': 'http'}])
+                                'scheme': settings.elastic_port}])
     index_settings = {
         "settings": {
             "refresh_interval": "1s",
