@@ -1,9 +1,11 @@
+from typing import Any, Dict, Generator, List, Tuple
+
 import psycopg2
-from psycopg2.extras import DictCursor
 from psycopg2.extensions import connection as PgConnection
-from settings import Settings
+from psycopg2.extras import DictCursor
+
 from decorators import backoff
-from typing import List, Dict, Any, Tuple
+from settings import Settings
 
 
 @backoff()
@@ -19,7 +21,7 @@ def psycopg2_connection() -> PgConnection:
     return psycopg2.connect(**dsl, cursor_factory=DictCursor)
 
 
-def extract_data(pg_conn, state) -> Tuple[List[Dict[str, Any]], str]:
+def extract_data(pg_conn, state, batch_size=100) -> Generator[List[Dict[str, Any]], None, None]:
     last_modified = state.get_state('last_modified') or '1970-01-01'
 
     with pg_conn.cursor() as cursor:
@@ -45,9 +47,9 @@ def extract_data(pg_conn, state) -> Tuple[List[Dict[str, Any]], str]:
             GROUP BY fw.id
             ORDER BY last_modified DESC;
         """, (last_modified, last_modified, last_modified))
-        results = cursor.fetchall()
 
-        if results:
-            last_modified = results[0]['last_modified'].strftime('%Y-%m-%dT%H:%M:%S.%f')[:-3] + 'Z'
-
-    return results, last_modified
+        while True:
+            batch = cursor.fetchmany(batch_size)
+            if not batch:
+                break
+            yield batch

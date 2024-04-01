@@ -1,7 +1,8 @@
-import time
 import logging
+import time
 from functools import wraps
-from typing import Callable, Any
+from typing import Any, Callable
+
 from settings import Settings
 
 settings = Settings()

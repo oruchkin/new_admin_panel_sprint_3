@@ -1,0 +1,9 @@
+/app/.env
+/etl/.env
+/infra/.env
+
+/app/.idea
+/etl/.idea
+/infra/.idea
+
+.idea

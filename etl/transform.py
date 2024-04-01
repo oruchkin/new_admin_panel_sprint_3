@@ -1,3 +1,6 @@
+from typing import Any, Dict, List
+
+
 class Movie:
     def __init__(self, movie_id, title, description, rating, genres, directors=None, actors=None, writers=None):
         self.id = movie_id
@@ -28,10 +31,9 @@ class Movie:
         }
 
 
-def transform_data(results) -> list:
-    """Преобразование результатов запроса в список экземпляров класса Movie."""
+def transform_data(batch: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
     movies = []
-    for row in results:
+    for row in batch:
         movie = Movie(
             movie_id=row['id'],
             title=row['title'],
@@ -42,5 +44,5 @@ def transform_data(results) -> list:
             actors=row['actors'],
             writers=row['writers']
         )
-        movies.append(movie.to_dict())  # Преобразование экземпляра класса Movie в словарь
+        movies.append(movie.to_dict())
     return movies

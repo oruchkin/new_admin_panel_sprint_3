@@ -1,6 +1,7 @@
 import logging
 
 from elasticsearch import Elasticsearch
+
 from settings import Settings
 
 

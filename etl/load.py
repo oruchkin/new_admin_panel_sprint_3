@@ -1,14 +1,16 @@
-from typing import List, Dict, Any
+from typing import Any, Dict, List
+
 from elasticsearch import Elasticsearch, helpers
+
+from decorators import backoff
 from settings import Settings
 
 
-def upload_to_elastic(data: List[Dict[str, Any]]) -> None:
+@backoff()
+def upload_to_elastic(data: List[Dict[str, Any]],
+                      es_client: Elasticsearch) -> None:
     settings = Settings()
-    es_client = Elasticsearch([{'host': settings.elastic_host,
-                                'port': settings.elastic_port,
-                                'scheme': 'http'}])
-    actions: List[Dict[str, Any]] = [
+    actions = [
         {
             "_index": settings.elastic_index_name,
             "_id": item['id'],

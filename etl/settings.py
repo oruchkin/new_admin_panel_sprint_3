@@ -16,6 +16,7 @@ class Settings(BaseSettings):
     elastic_host: str = Field(..., alias='ELASTIC_HOST')
     elastic_port: int = Field(..., alias='ELASTIC_PORT')
     elastic_index_name: str = Field(default="movies", alias='ELASTIC_INDEX_NAME')
+    elastic_schema: str = Field(default='http', alias='ELASTIC_SCHEMA')
 
     # General app settings
     initial_date: str = Field(default='2021-01-01', alias='INITIAL_DATE')
@@ -27,3 +28,4 @@ class Settings(BaseSettings):
     border_sleep_time: int = 10
     factor: int = 2
     start_sleep_time: float = 0.1
+
