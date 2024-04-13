@@ -2,6 +2,7 @@ from typing import Any, Dict, List
 
 
 class Movie:
+    """ Класс для хранения данных фильма. """
     def __init__(self, movie_id, title, description, rating, genres, directors=None, actors=None, writers=None):
         self.id = movie_id
         self.title = title
@@ -31,7 +32,8 @@ class Movie:
         }
 
 
-def transform_data(batch: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+def transform_movies_data(batch: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    """ Преобразует данные фильмов в формат для загрузки в ElasticSearch. """
     movies = []
     for row in batch:
         movie = Movie(
@@ -46,3 +48,29 @@ def transform_data(batch: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
         )
         movies.append(movie.to_dict())
     return movies
+
+
+def transform_genre_data(batch: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    """ Преобразует данные жанров в формат для загрузки в ElasticSearch. """
+    genres = []
+    for row in batch:
+        genre = {
+            "id": row["id"],
+            "name": row["name"],
+            "description": row["description"]
+        }
+        genres.append(genre)
+    return genres
+
+
+def transform_person_data(batch: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    """ Преобразует данные персон в формат для загрузки в ElasticSearch. """
+    persons = []
+    for row in batch:
+        person = {
+            "id": row["id"],
+            "full_name": row["full_name"],
+            "gender": row["gender"],
+        }
+        persons.append(person)
+    return persons
