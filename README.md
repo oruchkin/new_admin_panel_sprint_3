@@ -1,5 +1,9 @@
 # Проектное задание: ETL
 
+В этом репозитории так же задачи из 4ого спринта:
+ссылка на него:
+https://github.com/oruchkin/Async_API_sprint_1
+
 
 ## Как запустить
 `docker-compose up --build`
