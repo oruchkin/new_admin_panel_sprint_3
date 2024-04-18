@@ -8,11 +8,13 @@ from settings import Settings
 
 @backoff()
 def upload_to_elastic(data: List[Dict[str, Any]],
-                      es_client: Elasticsearch) -> None:
-    settings = Settings()
+                      es_client: Elasticsearch,
+                      index_name: str) -> None:
+    """ Загружает данные в ElasticSearch. """
+
     actions = [
         {
-            "_index": settings.elastic_index_name,
+            "_index": index_name,
             "_id": item['id'],
             "_source": item
         }

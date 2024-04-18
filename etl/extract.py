@@ -1,4 +1,4 @@
-from typing import Any, Dict, Generator, List, Tuple
+from typing import Any, Dict, Generator, List
 
 import psycopg2
 from psycopg2.extensions import connection as PgConnection
@@ -7,10 +7,12 @@ from psycopg2.extras import DictCursor
 from decorators import backoff
 from settings import Settings
 
+settings = Settings()
+
 
 @backoff()
 def psycopg2_connection() -> PgConnection:
-    settings = Settings()
+    """ Создает подключение к базе данных Postgres. """
     dsl = {
         'dbname': settings.postgres_dbname,
         'user': settings.postgres_user,
@@ -21,11 +23,15 @@ def psycopg2_connection() -> PgConnection:
     return psycopg2.connect(**dsl, cursor_factory=DictCursor)
 
 
-def extract_data(pg_conn, state, batch_size=100) -> Generator[List[Dict[str, Any]], None, None]:
-    last_modified = state.get_state('last_modified') or '1970-01-01'
+def extract_movies_data(pg_conn, state, batch_size) \
+        -> Generator[List[Dict[str, Any]], None, None]:
+    """ Извлекает данные о фильмах из базы данных Postgres. """
+
+    last_modified_date = (state.get_state('last_modified_movies')
+                          or settings.initial_date)
 
     with pg_conn.cursor() as cursor:
-        cursor.execute("""
+        query = """
             SELECT fw.id, 
                    fw.title, 
                    fw.description, 
@@ -46,8 +52,51 @@ def extract_data(pg_conn, state, batch_size=100) -> Generator[List[Dict[str, Any
             WHERE fw.modified > %s OR g.modified > %s OR p.modified > %s
             GROUP BY fw.id
             ORDER BY last_modified DESC;
-        """, (last_modified, last_modified, last_modified))
+        """
+        cursor.execute(query, (last_modified_date, last_modified_date, last_modified_date))
 
+        while True:
+            batch = cursor.fetchmany(batch_size)
+            if not batch:
+                break
+            yield batch
+
+
+def extract_genres_data(pg_conn, state, batch_size=100) \
+        -> Generator[List[Dict[str, Any]], None, None]:
+    """ Извлекает данные о жанрах из базы данных Postgres. """
+
+    last_modified_date = (state.get_state('last_modified_genres')
+                          or settings.initial_date)
+    query = """
+        SELECT id, name, description, modified AS last_modified
+        FROM content.genre
+        WHERE modified > %s
+        ORDER BY modified DESC;
+    """
+    with pg_conn.cursor() as cursor:
+        cursor.execute(query, (last_modified_date,))
+        while True:
+            batch = cursor.fetchmany(batch_size)
+            if not batch:
+                break
+            yield batch
+
+
+def extract_persons_data(pg_conn, state, batch_size=100) \
+        -> Generator[List[Dict[str, Any]], None, None]:
+    """ Извлекает данные о персонах из базы данных Postgres. """
+
+    last_modified_date = (state.get_state('last_modified_persons')
+                          or settings.initial_date)
+    query = """
+        SELECT id, full_name, gender, modified AS last_modified
+        FROM content.person
+        WHERE modified > %s
+        ORDER BY modified DESC;
+    """
+    with pg_conn.cursor() as cursor:
+        cursor.execute(query, (last_modified_date,))
         while True:
             batch = cursor.fetchmany(batch_size)
             if not batch:
