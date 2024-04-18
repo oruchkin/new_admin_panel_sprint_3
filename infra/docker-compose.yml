@@ -91,9 +91,21 @@ services:
       - prac-nginx
     restart: on-failure
 
+  redis:
+    image: redis
+    restart: always
+    expose:
+      - 6379
+    ports:
+      - "6379:6379"
+    command: redis-server --save 20 1 --loglevel warning
+    volumes:
+      - redisstorage:/data
+
 volumes:
-    static_value:
-    volume-prac-postgres:
-    elasticsearch-data:
+  static_value:
+  volume-prac-postgres:
+  elasticsearch-data:
+  redisstorage:
 
 
